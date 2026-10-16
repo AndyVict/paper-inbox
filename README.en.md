@@ -6,6 +6,8 @@ Add public abstracts, Chinese translation, your own journal metrics and phone no
 
 [简体中文](README.md) · [Demo output](examples/demo-report.html) · [Setup](docs/SETUP.md) · [Agent Skill](skills/paper-inbox/SKILL.md)
 
+[![CI](https://github.com/AndyVict/paper-inbox/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/AndyVict/paper-inbox/actions/workflows/ci.yml)
+
 ![Synthetic demo: four candidate records from two emails become three unique papers](docs/assets/demo.png)
 
 ## Try it without credentials
@@ -68,7 +70,7 @@ See [setup and delivery confirmation](docs/SETUP.md) before enabling notificatio
 
 ## Compatibility and maturity
 
-- Python metadata allows 3.11+. The CI matrix targets Windows/Linux on 3.11–3.14; see [release status](docs/RELEASE_STATUS.md) for actual local results and pending remote checks.
+- Python metadata allows 3.11+. All eight Windows/Linux CI combinations on 3.11–3.14 have passed 269 tests each. See [release status](docs/RELEASE_STATUS.md) for evidence and Actions for the latest run.
 - Configurable TLS IMAP host, port and ASCII mailbox names, with password/app-password authentication. 163 has live validation; other providers have mocked coverage only. OAuth2 is not implemented.
 - Phone delivery targets WxPusher App. Personal WeChat delivery is subject to the provider's binding/activation requirements and is not promised as unattended delivery.
 - This is a `0.1.0` release candidate. The manual end-to-end workflow has been used; the first scheduled weekly acceptance is still pending. Windows Task Scheduler export/registration is provided; other scheduling systems are not validated.

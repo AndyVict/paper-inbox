@@ -31,6 +31,24 @@
       "seconds": 5.81
     }
   ],
-  "remote_ci": "not_run",
+  "remote_ci": {
+    "date": "2026-10-16",
+    "status": "success",
+    "workflow_url": "https://github.com/AndyVict/paper-inbox/actions/runs/38868525709",
+    "tested_commit": "afe889a331d751c123cf827e4589b18551484337",
+    "successful_jobs": 9,
+    "test_combinations": 8,
+    "tests_per_combination": 269,
+    "platforms": [
+      "Windows",
+      "Linux"
+    ],
+    "python": [
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14"
+    ]
+  },
   "live_provider_checks_in_this_release_preparation": false
 }

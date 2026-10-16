@@ -6,6 +6,8 @@
 
 [English](README.en.md) · [离线演示页面](examples/demo-report.html) · [配置指南](docs/SETUP.md) · [配套 Skill](skills/paper-inbox/SKILL.md)
 
+[![CI](https://github.com/AndyVict/paper-inbox/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/AndyVict/paper-inbox/actions/workflows/ci.yml)
+
 ![Paper Inbox 合成演示：两封订阅邮件的四条候选合并为三篇文献](docs/assets/demo.png)
 
 ## 先体验，无需账号
@@ -79,7 +81,7 @@ Copy-Item -LiteralPath .env.example -Destination .env
 
 ## 支持状态
 
-- Python 声明范围为 **3.11+**；各版本和平台的实际验证记录见 [发布状态](docs/RELEASE_STATUS.md)。CI 计划覆盖 Windows / Linux、Python 3.11–3.14；远程运行结果以 Actions 为准。
+- Python 声明范围为 **3.11+**；Windows / Linux、Python 3.11–3.14 的 8 个 CI 组合均已通过，每组 269 项测试。实际验证记录见 [发布状态](docs/RELEASE_STATUS.md)，最新运行结果以 Actions 为准。
 - IMAP 支持可配置的 TLS 主机、端口和 ASCII 文件夹名，使用密码或授权码登录。**163 已做过真实连接验证**；其他服务仅有模拟验证，OAuth2 登录尚未实现。
 - 主要接收端为 **WxPusher App**。微信渠道依赖平台绑定及激活条件，不承诺个人微信无人值守投递。
 - 当前为 `0.1.0` 发布候选版。手动端到端流程已使用；首次实际周任务验收仍待完成，不宣称已长期无人值守运行。
