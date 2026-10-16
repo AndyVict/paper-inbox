@@ -1,0 +1,32 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+config.local.*
+*.secret
+*.secret.*
+secrets/
+# Runtime data, original email and local environments
+/data/
+/logs/
+*.eml
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.xlsx
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+/build/
+/dist/
+.coverage
+.pytest_cache/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak

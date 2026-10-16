@@ -1,0 +1,2 @@
+﻿journal_id,journal_title,journal_abbreviation,issn,eissn,publisher,country_region,citation_indices,metric_year,release_year,snapshot_id,jif,five_year_jif,jci,total_citations,eigenfactor,article_influence_score,record_status,missing_reason,source_url,retrieved_at,identity_status,field_missing_reasons
+synthetic:example,Synthetic Journal,,1234-5679,,,,,2025,2026,synthetic-demo,0.0,,0.0,,,,synthetic,,https://example.invalid/synthetic,,,

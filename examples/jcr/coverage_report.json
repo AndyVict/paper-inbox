@@ -1,0 +1,16 @@
+{
+  "snapshot_id": "synthetic-demo",
+  "metric_year": 2025,
+  "release_year": 2026,
+  "revision": "synthetic-example-v1",
+  "source_kind": "synthetic_test_fixture",
+  "synthetic": true,
+  "version_confirmed": false,
+  "permission": {
+    "full_access_confirmed": false,
+    "local_retention_confirmed": false,
+    "evidence": ""
+  },
+  "full_complete": false,
+  "official_universe_verified": false
+}

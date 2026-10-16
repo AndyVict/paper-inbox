@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-15",
+  "platform": "Windows x64",
+  "python_matrix": [
+    {
+      "python": "3.11.16",
+      "tests": 269,
+      "passed": true,
+      "resource_warnings": 0,
+      "seconds": 5.91
+    },
+    {
+      "python": "3.12.4",
+      "tests": 269,
+      "passed": true,
+      "resource_warnings": 0,
+      "seconds": 6.02
+    },
+    {
+      "python": "3.13.15",
+      "tests": 269,
+      "passed": true,
+      "resource_warnings": 0,
+      "seconds": 5.84
+    },
+    {
+      "python": "3.14.7",
+      "tests": 269,
+      "passed": true,
+      "resource_warnings": 0,
+      "seconds": 5.81
+    }
+  ],
+  "remote_ci": "not_run",
+  "live_provider_checks_in_this_release_preparation": false
+}

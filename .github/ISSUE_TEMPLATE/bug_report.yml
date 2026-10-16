@@ -1,0 +1,19 @@
+name: 问题反馈 / Bug report
+description: 使用安全错误码和合成输入描述问题
+body:
+  - type: markdown
+    attributes:
+      value: 请勿粘贴授权码、Token、真实邮件、数据库或完整日志。安全问题参见 SECURITY.md。
+  - type: input
+    id: environment
+    attributes:
+      label: 系统、Python 与项目版本 / Versions
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤与安全错误码 / Reproduction and safe error code
+      description: 使用合成输入，说明预期结果与实际结果。
+    validations:
+      required: true

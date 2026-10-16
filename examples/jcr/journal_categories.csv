@@ -1,0 +1,2 @@
+﻿journal_id,metric_year,release_year,snapshot_id,category_id,category_name,index_or_edition,jif_quartile,jif_rank,jif_category_total,jif_percentile,jci_quartile,jci_rank,jci_category_total,data_status,missing_reason,source_url,retrieved_at,field_missing_reasons
+synthetic:example,2025,2026,synthetic-demo,,Synthetic Category,EXAMPLE,N/A,,,,N/A,,,synthetic,,https://example.invalid/synthetic,,

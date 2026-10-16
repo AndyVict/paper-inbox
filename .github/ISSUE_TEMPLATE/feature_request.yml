@@ -1,0 +1,10 @@
+name: 功能建议 / Feature request
+description: 描述一个具体的文献订阅使用场景
+body:
+  - type: textarea
+    id: use_case
+    attributes:
+      label: 使用场景 / Use case
+      description: 谁会使用、输入是什么、期望得到什么结果？请使用合成示例。
+    validations:
+      required: true

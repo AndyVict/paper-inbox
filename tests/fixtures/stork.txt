@@ -1,0 +1,9 @@
+合成通知，不对应真实研究。
+Synthetic A & B: Highlighted title. by Example A, Sample B (2026) Example Journal (Impact Factor: 2.5) 1 区 Top
+PMID: 0001234567 doi: https://doi.org/10.5555/Offline.Alpha?track=SYNTHETIC_PRIVATE_MARKER
+https://www.storkapp.me/private/SYNTHETIC_PRIVATE_MARKER
+Second synthetic title. by Sample C (2025) Other Journal (Impact Factor: 1.2) Q3
+PMID: 7654321, doi: 10.5555/Offline.Beta).
+https://www.storkapp.me/private/SYNTHETIC_PRIVATE_MARKER
+Missing identifiers is allowed. by Sample D (2024) Minimal Journal (Impact Factor: 0.1) 4 区
+合成页脚。

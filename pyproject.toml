@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "paper-inbox"
+version = "0.1.0"
+description = "Turn literature alert emails into deduplicated reading lists and optional notifications"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+dependencies = []
+keywords = ["research", "literature", "email", "automation", "x-mol", "stork"]
+
+[project.urls]
+Repository = "https://github.com/AndyVict/paper-inbox"
+Issues = "https://github.com/AndyVict/paper-inbox/issues"
+
+[project.scripts]
+paper-inbox = "mail_literature.app:main"
+literature-preview = "mail_literature.cli:main"
+literature-sync = "mail_literature.sync_cli:main"
+literature-enrich = "mail_literature.enrich_cli:main"
+literature-translate = "mail_literature.translate_cli:main"
+literature-match-jcr = "mail_literature.jcr_match_cli:main"
+literature-send = "mail_literature.delivery_cli:main"
+literature-weekly = "mail_literature.weekly_cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mail_literature = ["resources/*.json"]

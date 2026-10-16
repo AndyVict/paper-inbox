@@ -1,0 +1,31 @@
+{
+  "synthetic": true,
+  "notice": "All papers, abstracts and translations are fictional fixtures. No live services or journal metrics are used.",
+  "messages": [
+    {
+      "source": "X-MOL",
+      "html": "<html><body><p>Synthetic literature alert</p><span><span>1. Learning from fewer samples in a synthetic laboratory</span><br><em>Example Methods Journal</em> (IF 0.0)2026-10-01 DOI:10.5555/paper-inbox-demo-alpha<br><a href='https://www.x-mol.com/paper/111111'>View paper</a><br>Example A, Example B<br><br><span>2. Reusable sensors for an imaginary field study</span><br><em>Example Engineering Journal</em> (IF 0.0)2026-10-02 DOI:10.5555/paper-inbox-demo-beta<br><a href='https://www.x-mol.com/paper/222222'>View paper</a><br>Example C<br><br></span></body></html>"
+    },
+    {
+      "source": "Stork",
+      "html": "<html><body><a href='https://www.storkapp.me/demo'>Learning from fewer samples in a synthetic laboratory</a><div>Example A, Example B · 2026</div><div><span>Example Methods Journal</span><span>IF 0.0</span><br><span>doi:10.5555/paper-inbox-demo-alpha</span></div><a href='https://www.storkapp.me/demo'>An open protocol for fictional microscopy experiments</a><div>Example D · 2026</div><div><span>Example Imaging Journal</span><span>IF 0.0</span><br><span>doi:10.5555/paper-inbox-demo-gamma</span></div></body></html>"
+    }
+  ],
+  "articles": {
+    "10.5555/paper-inbox-demo-alpha": {
+      "title_zh": "在合成实验室中用更少样本学习",
+      "abstract_en": "This fictional example compares two sampling strategies in a simulated laboratory. A reusable evaluation protocol makes the comparison easy to inspect. It illustrates an alert enriched with an abstract; it reports no real experimental result.",
+      "abstract_zh": "这篇虚构示例在模拟实验室中比较两种采样策略，并用可复用的评估流程展示比较过程。它用于演示文献订阅补充摘要后的阅读效果，不报告真实实验结果。"
+    },
+    "10.5555/paper-inbox-demo-beta": {
+      "title_zh": "面向虚构野外研究的可复用传感器",
+      "abstract_en": "This fictional engineering example describes a reusable sensor workflow. The sample text demonstrates how a journal alert becomes a readable entry with its original abstract and a fixed Chinese translation.",
+      "abstract_zh": "这篇虚构工程示例描述可复用的传感器工作流程。示例文字展示期刊订阅内容如何整理成同时包含原文摘要和固定中文译文的阅读条目。"
+    },
+    "10.5555/paper-inbox-demo-gamma": {
+      "title_zh": "虚构显微成像实验的开放流程",
+      "abstract_en": "This fictional imaging example presents an inspectable experiment protocol. All metadata and text are synthetic. Public abstracts in a real run would be retrieved from configured bibliographic services instead.",
+      "abstract_zh": "这篇虚构成像示例介绍可检查的实验流程。全部元数据和文字均为合成内容；真实运行中的公开摘要需要由书目服务查询取得。"
+    }
+  }
+}
