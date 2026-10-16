@@ -69,10 +69,13 @@ def check(root=ROOT):
                     errors.append((str(relative), "broken_local_link:" + target))
     required = ("LICENSE", "README.md", "README.en.md", "SECURITY.md", "CONTRIBUTING.md",
                 ".env.example", ".github/workflows/ci.yml", "docs/assets/demo.png",
-                "skills/paper-inbox/SKILL.md", "src/mail_literature/resources/demo.json")
+                "skills/paper-inbox/SKILL.md", "src/mail_literature/resources/demo.json",
+                "src/mail_literature/resources/showcase.json", "examples/demo-report.md", "examples/demo-report.html",
+                "THIRD_PARTY_NOTICES.md", "src/mail_literature/resources/jcr/bundled-jcr-2025/journals.csv",
+                "src/mail_literature/resources/jcr/bundled-jcr-2025/journal_categories.csv")
     errors.extend((name, "required_file_missing") for name in required if not (root / name).is_file())
     metadata = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
-    if metadata["project"].get("license") != "MIT":
+    if metadata["project"].get("license") != "MIT AND CC-BY-4.0 AND LicenseRef-Journal-Data":
         errors.append(("pyproject.toml", "license_mismatch"))
     return paths, errors
 

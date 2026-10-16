@@ -8,7 +8,7 @@ param(
     [ValidateSet('en','zh')]
     [string]$Language = 'en',
     [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9._-]{2,160}$')]
-    [string]$Snapshot = 'local-jcr',
+    [string]$Snapshot = 'bundled-jcr-2025',
     [switch]$Fetch,
     [switch]$EnablePush,
     [switch]$Register,

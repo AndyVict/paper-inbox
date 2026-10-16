@@ -1,0 +1,21 @@
+{
+  "snapshot_id": "bundled-jcr-2025",
+  "metric_year": 2025,
+  "release_year": 2026,
+  "revision": "frozen-local-2026-10-12;official-reload-unverified",
+  "journals": 22643,
+  "categories": 32215,
+  "subjects": 254,
+  "file_ingestion_complete": true,
+  "full_complete": false,
+  "official_universe_verified": false,
+  "notes": [
+    "All source journal and category rows were retained; private acquisition fields and duplicate workbook columns were excluded.",
+    "Source/version verification and official-universe completeness have not been established.",
+    "Missing metrics and invalid source identifiers were retained without guessing replacements."
+  ],
+  "files_sha256": {
+    "journals.csv": "b8c5837c501ab50336dcdc3f6692214d86ef037d930b460bdd49a4d1933b7220",
+    "journal_categories.csv": "4a2fe50bf5f8b7abe26339cdd868c35622deb3708ab3c1b28d85e568926dabf0"
+  }
+}

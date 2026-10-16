@@ -7,8 +7,8 @@ name = "paper-inbox"
 version = "0.1.0"
 description = "Turn literature alert emails into deduplicated reading lists and optional notifications"
 readme = "README.md"
-license = "MIT"
-license-files = ["LICENSE"]
+license = "MIT AND CC-BY-4.0 AND LicenseRef-Journal-Data"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
 requires-python = ">=3.11"
 dependencies = []
 keywords = ["research", "literature", "email", "automation", "x-mol", "stork"]
@@ -31,4 +31,4 @@ literature-weekly = "mail_literature.weekly_cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-mail_literature = ["resources/*.json"]
+mail_literature = ["resources/*.json", "resources/jcr/bundled-jcr-2025/*.json", "resources/jcr/bundled-jcr-2025/*.csv"]

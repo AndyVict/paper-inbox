@@ -1,0 +1,120 @@
+{
+  "papers": [
+    {
+      "article": {
+        "title_en": "UAV-based estimation of sunflower leaf flavonol content across multiple flight heights using RGB-multispectral canopy features and machine learning.",
+        "journal": "Front Plant Sci",
+        "year": 2026,
+        "doi": "10.3389/fpls.2026.1931472",
+        "pmid": "42741315",
+        "title_zh": "使用RGB多光谱树冠特征和机器学习基于无人机估计多个飞行高度的向日葵叶黄酮醇含量。",
+        "abstract_en": "Rapid and non-destructive estimation of leaf flavonol content (Flav) is important for assessing crop physiological status and stress response. In this study, unmanned aerial vehicle (UAV)-based red, green, and blue (RGB) and multispectral imagery was used to estimate sunflower leaf Flav across the seedling, budding, flowering, and maturity stages. Data were collected at a single experimental site in the Yellow River Delta, China, during the 2025 growing season. UAV images were acquired at flight heights of 30 m, 50 m, and 80 m, and ground measurements of Flav were obtained within the same acquisition window using an MPM-100 plant multispectral pigment meter. A total of 320 plot-level observations were obtained from 80 sampling plots, which were divided at the plot level into 56 training plots and 24 testing plots, with all four growth-stage observations from the same plot assigned to the same subset. Feature selection and model development were conducted using the training data, which were further divided for hyperparameter optimization, whereas the testing set was used for comparative performance evaluation. A total of 44 UAV-derived features, including 22 vegetation indices, 16 texture features, and six color features, were extracted from sunflower canopy imagery. Pearson correlation coefficient (PCC) analysis and the Boruta algorithm were combined to identify compact feature subsets, and six regression models, including K-nearest neighbors, random forest, CatBoost, support vector regression, LightGBM, and Transformer regression, were evaluated. Genetic algorithm (GA), particle swarm optimization (PSO), and grey wolf optimizer (GWO) were further used to tune the Transformer model at the intermediate flight height of 50 m. The PCC-Boruta strategy reduced feature dimensionality and produced favorable predictive performance on the testing set. Among the evaluated regression models, the Transformer model achieved the best overall performance. Using the optimal feature combination, the PCC-Boruta-Transformer model obtained test-set R2 values of 0.932, 0.911, and 0.909 at 30 m, 50 m, and 80 m, respectively, with corresponding root mean square error (RMSE) values of 0.060, 0.069, and 0.070. Thus, the 30 m model provided the highest predictive accuracy among the three unoptimized flight-height models. The 50 m dataset, representing the intermediate level among the three evaluated flight heights, was used for subsequent hyperparameter optimization. Among the evaluated optimization configurations, the GWO-tuned Transformer achieved the best observed testing-set performance, with an R2 of 0.947 and an RMSE of 0.053. These results demonstrate the feasibility of the evaluated workflow under the specific site, growing-season, sensor, and management conditions of this experiment.",
+        "abstract_zh": "快速、无损地估计叶片黄酮醇含量（Flav）对于评估作物生理状态和胁迫响应非常重要。在这项研究中，基于无人机（UAV）的红色、绿色和蓝色（RGB）和多光谱图像用于估计向日葵幼苗、萌芽、开花和成熟阶段的叶片Flav。数据是在2025年生长季节在中国黄河三角洲的一个实验点收集的。在30米、50米和80米的飞行高度采集无人机图像，并使用MPM-100植物多光谱颜料仪在同一采集窗口内获得Flav的地面测量。从80个采样地块中总共获得了320个地块水平的观察值，这些地块在地块水平上被分为56个训练地块和24个测试地块，来自同一地块的所有四个生长阶段观察值被分配到同一子集。使用训练数据进行特征选择和模型开发，训练数据被进一步划分用于超参数优化，而测试集用于比较性能评估。从向日葵树冠图像中提取了总共44个无人机衍生的特征，包括22个植被指数、16个纹理特征和6个颜色特征。皮尔逊相关系数（PCC）分析和Boruta算法相结合来识别紧凑的特征子集，并评估了六个回归模型，包括K-最近邻、随机森林、CatBoost、支持向量回归、LightGBM和Transformer回归。进一步使用遗传算法（GA）、粒子群优化（PSO）和灰狼优化器（GWO）来调整中间飞行高度50 m的Transformer模型。PCC-Boruta策略降低了特征维数，并在测试集上产生了良好的预测性能。在评估的回归模型中，Transformer模型取得了最好的整体性能。使用最佳特征组合，PCC-博鲁塔-Transformer模型在30 m、50 m和80 m处分别获得了0.932、0.911和0.909的测试集R2值，相应的均方根误差（RMSE）值为0.060、0.069和0.070。因此，在三个未优化的飞行高度模型中，30 m模型提供了最高的预测精度。50米数据集代表三个评估的飞行高度中的中间水平，用于后续的超参数优化。在评估的优化配置中，GWO调谐变压器实现了最佳观察到的测试集性能，R2为0.947，RMSE为0.053。这些结果表明了在本实验的特定地点、生长季节、传感器和管理条件下评估的工作流程的可行性。",
+        "title_zh_source_hash": "00146672a57df244794a141725ba4e8bc678ee4dec6af448210a0aca63e026df",
+        "abstract_zh_source_hash": "f4b8b45a23a542577364af99433c02beab4a0db474c8396ade2b39c44f84ab74",
+        "jcr_match": {
+          "status": "matched",
+          "metric_year": 2025,
+          "release_year": 2026,
+          "source_kind": "user_provided_workbook",
+          "full_complete": false,
+          "version_confirmed": false,
+          "source_verified": false,
+          "matched_issns": [
+            "1664-462X"
+          ],
+          "journal": {
+            "eissn": "1664-462X",
+            "issn": "1664-462X",
+            "jci": "1.16",
+            "jif": "5.9",
+            "journal_id": "showcase-frontiers-plant-science",
+            "journal_title": "Frontiers in Plant Science"
+          },
+          "categories": [
+            {
+              "category_name": "PLANT SCIENCES",
+              "index_or_edition": "SCIE",
+              "jci_category_total": "285",
+              "jci_quartile": "Q1",
+              "jci_rank": "35/285",
+              "jif_category_total": "285",
+              "jif_quartile": "Q1",
+              "jif_rank": "33/285"
+            }
+          ],
+          "identity_hash": "3ffa8ac2c9e5b91ee45b06bc223a2cee7a32f3d8f6c90842a54d83dc6fe7c3a4",
+          "metadata_hash": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "snapshot_id": "showcase-jcr-2025",
+          "snapshot_hash": "9988b3285d4d697869c1035bd808d253fe37c9b78281ad383a2e03234ec1c88c",
+          "revision": "local-message-snapshot-not-officially-verified",
+          "candidates": [],
+          "reason": "showcase_of_existing_message"
+        }
+      },
+      "source_url": "https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2026.1931472/full",
+      "license": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "translation_note": "中文标题和摘要为原有本地机器译文，属于对原文的翻译；未另作摘要概述。",
+      "attribution": "© 2026 Han, Zhao, Song, Zhang, Lu and Yuan. Frontiers in Plant Science 17, 1931472."
+    },
+    {
+      "article": {
+        "title_en": "Coupling critical nitrogen dilution curve with hyperspectral feature optimization and machine learning for inversion of nitrogen nutrition index in greenhouse cucumber.",
+        "journal": "Front Plant Sci",
+        "year": 2026,
+        "doi": "10.3389/fpls.2026.1909263",
+        "pmid": "42666379",
+        "title_zh": "临界氮稀释曲线与高光谱特征优化和机器学习耦合反演温室黄瓜氮营养指数。",
+        "abstract_en": "INTRODUCTION: Rapid, non-destructive, and accurate diagnosis of nitrogen (N) nutritional status in greenhouse cucumber production is critical to mitigate over-fertilization risks and support sustainable intensification.\nMETHODS: An integrated diagnostic framework was developed by coupling the agronomic critical nitrogen (Nc) dilution curve with a hybrid Competitive Adaptive Reweighted Sampling and Variance Inflation Factor (CARS-VIF) feature selection algorithm, followed by benchmarking six machine learning regression models, including K-Nearest Neighbors (KNN), Multilayer Perceptron (MLP), Support Vector Regression (SVR), Extra Trees, Random Forest (RF), and Gradient Boosting Regression (GBR) .\nRESULTS: The critical nitrogen dilution curve was parameterized as Nc = 4.378 × DW-0.115 (R² = 0.745), with empirical Nitrogen Nutrition Index (NNI) values ranging from 0.72 to 1.22. The CARS-VIF pipeline compressed the full spectrum down to four sensitive wavebands (430, 677, 688, and 953 nm), achieving a 99.81% dimensionality reduction. GBR emerged as the optimal inversion model, delivering a validation R² of 0.845, RMSE of 0.061, and the lowest MAE of 0.046.\nDISCUSSION: This non-destructive framework holds promise for future integration into automated greenhouse sensor platforms or unmanned aerial vehicles (UAVs), offering a powerful digital toolkit to support precision fertilization decision-making and sustainable smart facility horticulture. Additional validation under field conditions is required before operational deployment.",
+        "abstract_zh": "导言：快速、无损和准确地诊断温室黄瓜生产中的氮（N）营养状况对于减轻过度施肥风险和支持可持续集约化至关重要。\n方法：通过将农艺临界氮（Nc）稀释曲线与混合竞争自适应重新加权采样和方差膨胀因子（CARS-VIF）特征选择算法耦合，开发了一个集成诊断框架，然后对六个机器学习回归模型进行基准测试，包括K-最近邻（KNN）、多层感知器（MLP）、支持向量回归（SVR）、额外树、随机森林（RF）和梯度增强回归（GBR）。\n结果：临界氮稀释曲线参数化为Nc=4.378×DW-0.115（R²=0.745），经验氮营养指数（NNI）值范围为0.72至1.22。CARS-VIF管道将整个光谱压缩到四个敏感波段（430、677、688和953 nm），实现了99.81%的降维。GBR 成为最佳反演模型，验证 R² 为 0.845，RMSE 为 0.061，最低 MAE 为 0.046。\n讨论：这种非破坏性框架有望在未来集成到自动化温室传感器平台或无人机（UAV）中，提供强大的数字工具包来支持精准施肥决策和可持续智能设施园艺。在业务部署之前，需要在现场条件下进行额外的验证。",
+        "title_zh_source_hash": "6bbc2c802801455187d755fa69f65c210d94f99bdf93fb6994c6ad1ba1b1bca3",
+        "abstract_zh_source_hash": "29b7e8ccca467acdfe9dd2b5faceb704ca96edb09ce5ae50a6efb106ebbbe8c9",
+        "jcr_match": {
+          "status": "matched",
+          "metric_year": 2025,
+          "release_year": 2026,
+          "source_kind": "user_provided_workbook",
+          "full_complete": false,
+          "version_confirmed": false,
+          "source_verified": false,
+          "matched_issns": [
+            "1664-462X"
+          ],
+          "journal": {
+            "eissn": "1664-462X",
+            "issn": "1664-462X",
+            "jci": "1.16",
+            "jif": "5.9",
+            "journal_id": "showcase-frontiers-plant-science",
+            "journal_title": "Frontiers in Plant Science"
+          },
+          "categories": [
+            {
+              "category_name": "PLANT SCIENCES",
+              "index_or_edition": "SCIE",
+              "jci_category_total": "285",
+              "jci_quartile": "Q1",
+              "jci_rank": "35/285",
+              "jif_category_total": "285",
+              "jif_quartile": "Q1",
+              "jif_rank": "33/285"
+            }
+          ],
+          "identity_hash": "ddccb5d96483efe481f08b98cd2fe51c2d8a092d108f7cac166dcd1231de121c",
+          "metadata_hash": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "snapshot_id": "showcase-jcr-2025",
+          "snapshot_hash": "9988b3285d4d697869c1035bd808d253fe37c9b78281ad383a2e03234ec1c88c",
+          "revision": "local-message-snapshot-not-officially-verified",
+          "candidates": [],
+          "reason": "showcase_of_existing_message"
+        }
+      },
+      "source_url": "https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2026.1909263/full",
+      "license": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "translation_note": "中文标题和摘要为原有本地机器译文，属于对原文的翻译；未另作摘要概述。",
+      "attribution": "© 2026 Zhao, Li, Hu, Zhang, Zhang, Xu and Xiu. Frontiers in Plant Science 17, 1909263."
+    }
+  ]
+}

@@ -1,106 +1,111 @@
 # Paper Inbox
 
-**把 X-MOL / Stork 文献订阅邮件，整理成去重的阅读清单。**
+**每周整理 X-MOL / Stork 订阅邮件，把值得读的论文送到手机。**
 
-公开摘要、中文翻译、用户自备期刊指标、手机推送，按需启用。Python 标准库运行，核心流程无需 AI Agent。
+合并重复文献，补齐中文标题、摘要和期刊指标，再通过 WxPusher App 逐篇推送。打开一条消息，就能看到论文讲什么、发表在哪本期刊，以及原文链接。
 
-[English](README.en.md) · [离线演示页面](examples/demo-report.html) · [配置指南](docs/SETUP.md) · [配套 Skill](skills/paper-inbox/SKILL.md)
+[English](README.en.md) · [完整消息样例](examples/demo-report.md) · [配置与推送教程](docs/SETUP.md) · [Agent Skill](docs/SKILL.md)
 
 [![CI](https://github.com/AndyVict/paper-inbox/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/AndyVict/paper-inbox/actions/workflows/ci.yml)
 
-![Paper Inbox 合成演示：两封订阅邮件的四条候选合并为三篇文献](docs/assets/demo.png)
+## 省下哪些整理工作
 
-## 先体验，无需账号
+- **不用逐封翻邮件。** 从邮箱读取 X-MOL / Stork 订阅，按周整理。
+- **同一篇只处理一次。** 合并两个来源和不同批次中的重复文献，保留已有翻译与发送记录。
+- **先用中文判断是否值得读。** 一篇一条，包含中英文标题、期刊、JIF/JCI 分区、中文摘要和原文链接。
+- **中断后继续。** SQLite 保存进度和缓存，已有结果可复用；结果不明的投递保留待查。
 
-使用 Python 3.11 或以上版本，克隆仓库后直接运行：
+期刊库随项目提供，含 **22,643 刊、32,215 条分类、254 个学科**，无需另接数据源即可离线查询。中文翻译使用小牛；收信、翻译、期刊匹配和推送可以分别启用。
+
+## 消息预览
+
+![已有消息的完整预览：中英文标题、期刊及分区、中文摘要和论文链接](docs/assets/demo.png)
+
+*图为本地消息预览，使用与正式推送相同的模板。论文来自公开的 CC BY 4.0 文章，中文内容沿用已有机器译文；出处见[完整样例](examples/demo-report.md)。*
+
+## 先看效果
+
+直接打开[完整消息样例](examples/demo-report.md)，无需安装。也可以在本地生成相同的 HTML 展示：
 
 ```powershell
 git clone https://github.com/AndyVict/paper-inbox.git
 cd paper-inbox
-python -X utf8 scripts/demo.py
+python -X utf8 scripts/showcase.py
 ```
 
-也可以从 GitHub 下载源码 ZIP，解压后在项目目录运行同一条演示命令。
+用浏览器打开 `data/showcase/report.html`。两条消息来自已有预览，保留完整摘要和七字段；不需要账号，不联网、不推送。
 
-用浏览器打开 `data/demo/report.html`，即可看到 **2 封邮件 → 4 条候选 → 3 篇文献**。演示复用真实解析器和去重逻辑，摘要与译文为固定合成内容；不读取 `.env`、不联网、不推送、不写入活动数据库。
+想查看邮件如何被解析、合并，另运行 `python -X utf8 scripts/demo.py`，打开 `data/demo/report.html`。这条演示使用合成邮件，展示 **2 封邮件 → 4 条候选 → 3 篇文献**，与真实待发队列分开。
 
-想先看结果，可以阅读 [Markdown 示例](examples/demo-report.md)。全部示例论文、标识和指标模板都是合成数据。
+## 离线查询期刊
 
-## 它能做什么
+克隆仓库后即可按期刊名或 ISSN 查询，无需邮箱、API 密钥或其他数据源：
 
-| 功能 | 行为与边界 |
-| --- | --- |
-| 解析订阅 | X-MOL / Stork 的 HTML 或纯文本邮件；其他格式可能需要适配 |
-| 合并重复 | DOI → PMID → 标准化标题与年份，保留来源和稳定 ID |
-| 接续运行 | SQLite 保存游标、缓存和处理状态，重复运行复用已有结果 |
-| 查询摘要 | PubMed / Europe PMC / Crossref / OpenAlex；未取得可靠摘要时保留缺项 |
-| 中文翻译 | 可选小牛 `cloud` / `neu` 接口；译文缓存和长度分段 |
-| 期刊指标 | 可选导入用户自备数据，以 ISSN/eISSN 精确匹配；不附带 JCR 数据库 |
-| 手机推送 | 可选 WxPusher App，记录平台接收与人工确认，结果不明不自动重发 |
-| 定时运行 | Windows 任务脚本；其他系统可自行调用 CLI，调度适配待验证 |
+```powershell
+python -X utf8 scripts/journals.py --issn 1664-462X
+python -X utf8 scripts/journals.py "Nature" --limit 5
+```
 
-## 安装与真实使用
+安装后对应命令为 `paper-inbox journals`，可增加 `--json` 输出结构化结果。随包数据为 2025 年指标、2026 发布年，来源为维护者逐一下载整理并确认可公开分发的快照；版本与官方全集尚未独立核验，详见[期刊库说明](docs/JCR.md)。
 
-以下命令在项目根目录执行。Windows PowerShell：
+## 开始使用
+
+需要 Python **3.11+**。运行时只使用 Python 标准库。以下命令在项目根目录执行，适用于 Windows PowerShell：
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e .
-.\.venv\Scripts\paper-inbox.exe --help
-if (Test-Path -LiteralPath .env) { throw 'config_already_exists' }
-Copy-Item -LiteralPath .env.example -Destination .env
+if (-not (Test-Path -LiteralPath .env)) {
+    Copy-Item -LiteralPath .env.example -Destination .env
+}
 ```
 
-复制配置是首次安装操作，已有 `.env` 时直接编辑自己的文件。macOS / Linux 的虚拟环境解释器和命令分别位于 `.venv/bin/python`、`.venv/bin/paper-inbox`。
-
-编辑 `.env` 的 `IMAP_*` 配置，再先检查格式、只读收信：
+在本机编辑 `.env`，填写邮箱的 `IMAP_*` 配置。163 邮箱使用客户端授权码。先检查配置，再只读收信：
 
 ```powershell
 .\.venv\Scripts\paper-inbox.exe sync --check-config
 .\.venv\Scripts\paper-inbox.exe sync --fetch --max-mails 20
 ```
 
-查看 `data/outbox/` 中的 Markdown。收信使用只读连接和 `BODY.PEEK`，不标记已读、不移动或删除邮件。
+结果在 `data/outbox/`。收信不会标记已读、移动或删除邮件。
 
-再按需要增加功能：
+填写小牛配置后，可以继续生成中文消息预览：
 
 ```powershell
-# 收信 + 查询公开摘要 + 英文发送预览；不需要翻译或 JCR 配置，不发送
-.\.venv\Scripts\paper-inbox.exe weekly --fetch
-
-# 配好小牛后加入翻译；仍只生成中文预览
-.\.venv\Scripts\paper-inbox.exe weekly --fetch --stages sync,abstracts,translation,delivery --language zh
-
-# 查询发送记录，不加载推送配置、不联网
-.\.venv\Scripts\paper-inbox.exe send --status
+.\.venv\Scripts\paper-inbox.exe weekly --fetch --stages sync,abstracts,translation,jcr,delivery --language zh
 ```
 
-`weekly` 默认阶段为 `sync,abstracts,delivery`、默认英文；单独 `send` 默认中文，可通过 `--language en` 改为原文。阶段按固定依赖顺序执行，未选阶段不调用其配置或服务。中文真实发送会暂缓尚未完成翻译的文献。
+查看 `data/send-preview/`。这条命令尚未推送；单条试发、确认收到及每周任务的完整步骤见[推荐流程](docs/SETUP.md#推荐流程从中文预览到每周推送)。macOS / Linux 使用 `.venv/bin/python` 和 `.venv/bin/paper-inbox`。
 
-真实推送须显式 `--send`；首次单条测试、实际接收确认及每周任务见 [配置指南](docs/SETUP.md)。只有 `--fetch` 才启用对应阶段的联网查询。纯 `weekly` 默认只使用本地数据和缓存。
+| 想使用的功能 | 需要准备 |
+| --- | --- |
+| 收取订阅邮件 | 开启 IMAP 的邮箱与授权码；163 已做真实验证 |
+| 查询公开摘要 | 可访问 PubMed / Europe PMC / Crossref / OpenAlex，无需小牛或推送账号 |
+| 中文标题与摘要 | 小牛 `cloud` 或 `neu` 接口账号及可用额度 |
+| JIF / JCI 和分区 | 默认使用随包期刊库，也可[导入自己的快照](docs/JCR.md) |
+| 手机接收 | WxPusher App、应用 Token 和接收者 UID |
 
-## 支持状态
+## 使用前了解
 
-- Python 声明范围为 **3.11+**；Windows / Linux、Python 3.11–3.14 的 8 个 CI 组合均已通过，每组 269 项测试。实际验证记录见 [发布状态](docs/RELEASE_STATUS.md)，最新运行结果以 Actions 为准。
-- IMAP 支持可配置的 TLS 主机、端口和 ASCII 文件夹名，使用密码或授权码登录。**163 已做过真实连接验证**；其他服务仅有模拟验证，OAuth2 登录尚未实现。
-- 主要接收端为 **WxPusher App**。微信渠道依赖平台绑定及激活条件，不承诺个人微信无人值守投递。
-- 当前为 `0.1.0` 发布候选版。手动端到端流程已使用；首次实际周任务验收仍待完成，不宣称已长期无人值守运行。
+主要接收端为 **WxPusher App**；微信渠道取决于平台绑定和激活条件。已有手动端到端使用记录，首次实际周任务观察仍待完成。Windows 提供任务计划脚本；其他系统可自行调度 CLI。
 
-## 配套 Agent Skill
+IMAP 支持可配置的 TLS 主机和文件夹，其他服务目前仅有模拟测试，不支持 OAuth2。缺少可靠摘要时保留缺项。期刊库为冻结快照，保留源数据的缺失值和 3 个异常标识符，不表示已纳入后续官方 reload。
 
-[skills/paper-inbox/](skills/paper-inbox/SKILL.md) 提供环境检查、配置引导、预览、状态查询和故障定位。把该目录安装到支持 Agent Skills 的客户端，并另外安装本工具；仅安装 Skill 不会安装 Python 核心。
+`weekly` 默认生成英文预览；中文需选择 `translation` 和 `--language zh`。联网查询需要 `--fetch`，真实推送需要 `--send`。首次试发确认实际收到后，再启用批量或定时推送。具体支持范围见[发布与验证记录](docs/RELEASE_STATUS.md)。
 
-可提出：“用 paper-inbox 先跑离线演示，再帮我检查本地收信配置。” 客户端与安装渠道的兼容性见 [Skill 说明](docs/SKILL.md)。
+## 用 Agent 帮忙配置
 
-## 参与贡献
+仓库附带 [paper-inbox Skill](skills/paper-inbox/SKILL.md)，可引导安装、配置、预览和排错。Python 工具和 Skill 分别安装，步骤见[安装说明](docs/SKILL.md)。
 
-欢迎提交合成邮件样例、新来源解析器、服务适配和文档改进。请先阅读 [贡献指南](CONTRIBUTING.md)；报告问题时只提供错误码和合成复现材料。
+例如：“先生成 Paper Inbox 的完整消息展示，再帮我检查本地邮箱配置。”
+
+## 反馈与贡献
+
+欢迎反馈邮件格式兼容性和阅读体验，也欢迎提供合成样本或新解析器。开发检查：
 
 ```powershell
 python -X utf8 -m unittest discover -s tests -q
 python -X utf8 scripts/check_release.py
 ```
 
-原始邮件、授权码、数据库、日志和用户自备期刊数据均留在本地；详见 [安全与数据流](SECURITY.md) 和 [数据来源](PROVENANCE.md)。
-
-代码与合成示例采用 [MIT License](LICENSE)。外部服务和用户自备数据受各自的使用条件约束。
+提交问题前请阅读[贡献指南](CONTRIBUTING.md)和[安全说明](SECURITY.md)，避免上传真实邮件、配置或数据库。项目代码和原创文档采用 [MIT](LICENSE)；展示论文及译文保留各自许可，详见[来源说明](PROVENANCE.md)。

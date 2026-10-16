@@ -7,15 +7,13 @@ import sqlite3
 import sys
 
 from .jcr.matching import JournalIndex
-from .jcr.storage import JcrError, snapshot_path
+from .jcr.storage import JcrError
+from .jcr.bundled import DEFAULT_SNAPSHOT, resolve_snapshot
 from .jcr_enrichment import enrich_journals, write_match_report
 from .journal_metadata import CachedJournals
 from .preview import OutboxError, write_snapshot_previews
 from .state import StateError, StateStore
 from .sync_cli import _run_lock
-
-DEFAULT_SNAPSHOT = 'local-jcr'
-
 
 def _backup_once(database, data):
     """首次写入期刊字段前备份；标记成功后重复运行不重复备份。"""
@@ -50,7 +48,7 @@ def main(argv=None, *, project_root=None):
     data = (root / 'data').resolve()
     database, outbox, reports = args.db.resolve(), args.outbox_dir.resolve(), args.report_dir.resolve()
     try:
-        snapshot = snapshot_path(root, args.snapshot)
+        snapshot = resolve_snapshot(root, args.snapshot)
         protected = [(data / name).resolve() for name in ('samples', 'jcr', 'backups', 'private')]
         if (not database.is_file() or database.suffix not in {'.sqlite3', '.sqlite', '.db'} or
                 not 1 <= args.max_articles <= 1000 or not 2 <= args.max_requests <= 1000 or

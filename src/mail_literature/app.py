@@ -4,8 +4,8 @@ import importlib
 import sys
 
 COMMANDS = {
-    "demo": "demo_cli", "preview": "cli", "sync": "sync_cli",
-    "abstracts": "enrich_cli", "translate": "translate_cli", "jcr": "jcr_match_cli",
+    "demo": "demo_cli", "showcase": "showcase_cli", "preview": "cli", "sync": "sync_cli",
+    "abstracts": "enrich_cli", "translate": "translate_cli", "jcr": "jcr_match_cli", "journals": "journals_cli",
     "send": "delivery_cli", "weekly": "weekly_cli",
 }
 

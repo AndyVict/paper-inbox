@@ -1,0 +1,23 @@
+{
+  "snapshot_id": "bundled-jcr-2025",
+  "metric_year": 2025,
+  "release_year": 2026,
+  "revision": "frozen-local-2026-10-12;official-reload-unverified",
+  "source_kind": "maintainer_curated_snapshot",
+  "synthetic": false,
+  "version_confirmed": false,
+  "license": "LicenseRef-Journal-Data",
+  "source_description": "Maintainer-curated journal records, individually downloaded and supplied as a local snapshot.",
+  "permission": {
+    "provider_redistribution_confirmed": true,
+    "provider_confirmation_date": "2026-10-16",
+    "evidence": "The maintainer confirmed permission to publish and stated that the records were individually downloaded.",
+    "full_access_confirmed": false,
+    "local_retention_confirmed": false,
+    "independently_verified": false
+  },
+  "source_dataset_sha256": {
+    "journals.csv": "c4cc95e399ff5441da3e607ede32e6bf8fd9739940ed952b640d3d372a376da7",
+    "journal_categories.csv": "40f30074989bca054b51233ce446adce283c7ec05770997372b07b23e37ef221"
+  }
+}

@@ -2,6 +2,41 @@
 
 所有命令在项目根目录执行，使用虚拟环境内的 `paper-inbox` 命令。Windows 完整路径为 `.\.venv\Scripts\paper-inbox.exe`；macOS / Linux 为 `.venv/bin/paper-inbox`。
 
+## 推荐流程：从中文预览到每周推送
+
+第一次配置建议按下面顺序完成。首次安装见 [README](../README.md)，以下 Windows 命令使用项目内虚拟环境；macOS / Linux 换成 `.venv/bin/paper-inbox`。
+
+1. **先看消息效果。** 运行 `python -X utf8 scripts/showcase.py`，打开 `data/showcase/report.html`；需要检查邮件解析时再运行合成的 `scripts/demo.py`。
+2. **填写邮箱配置。** 在本机 `.env` 设置 `IMAP_*`，完成下面的格式检查和只读收信。
+3. **填写小牛配置。** 核对自己的 `cloud` / `neu` 接口类型和可用额度。
+4. **检查随包期刊库。** 运行 `python -X utf8 scripts/journals.py --info`，无需另外配置数据源。默认快照为 `bundled-jcr-2025`；如有自己的有效快照，可按 [JCR.md](JCR.md) 导入并显式切换。
+
+```powershell
+.\.venv\Scripts\paper-inbox.exe sync --check-config
+.\.venv\Scripts\paper-inbox.exe sync --fetch --max-mails 20
+.\.venv\Scripts\paper-inbox.exe translate --check-config
+# 使用随包快照，生成包含中文和期刊信息的完整预览
+.\.venv\Scripts\paper-inbox.exe weekly --fetch --stages sync,abstracts,translation,jcr,delivery --language zh
+```
+
+查看 `data/send-preview/` 的逐篇文本；公开摘要缺项、翻译或期刊匹配问题先在本地处理。预览合适后，再填写 WxPusher 配置并只发送一条：
+
+```powershell
+.\.venv\Scripts\paper-inbox.exe send --check-config
+.\.venv\Scripts\paper-inbox.exe send --send --language zh --max-messages 1
+```
+
+在 App 中实际查看后，用终端返回的尝试编号确认接收。下面的 `1` 只是示例，须替换为实际编号：
+
+```powershell
+.\.venv\Scripts\paper-inbox.exe send --confirm-received 1
+.\.venv\Scripts\paper-inbox.exe weekly --fetch --send --stages sync,abstracts,translation,jcr,delivery --language zh
+# 先导出每周计划，检查内容和时间；加 -Register 才注册系统任务
+.\scripts\install_weekly_task.ps1 -Day Monday -At 10:00 -Stages 'sync,abstracts,translation,jcr,delivery' -Language zh -Snapshot bundled-jcr-2025 -Fetch -EnablePush
+```
+
+此后的运行会接续缓存和发送历史。系统任务需要电脑开机、当前用户登录；注册方法和运行边界见第 7 节。
+
 ## 1. 先离线体验
 
 `python -X utf8 scripts/demo.py` 不需要安装第三方包或配置账号。结果在 `data/demo/`，与活动库 `data/state.sqlite3` 隔离；演示数据不会自动进入真实待发队列。
@@ -53,16 +88,16 @@ paper-inbox weekly --fetch --stages sync,abstracts,translation,delivery --langua
 
 翻译会将待译标题与摘要发送给配置对应的小牛服务，可能消耗账号额度。已有有效译文和分段缓存可复用；`neu` 使用较小的保守输入预算。仅选择英文模式时不需要翻译配置。
 
-## 5. 可选期刊指标
+## 5. 期刊指标
 
-代码支持本地 CSV / XLSX 导入及 ISSN 精确匹配；不提供现成 JCR 数据库、下载账号或许可。字段模板和接入步骤见 [JCR.md](JCR.md)。
+默认使用随包的 `bundled-jcr-2025`，无需导入或账号。支持按名称/ISSN 离线查询，也可导入自己的 CSV / XLSX 并以 ISSN 精确匹配；步骤见 [JCR.md](JCR.md)。
 
 ```console
-paper-inbox jcr --snapshot local-jcr
-paper-inbox weekly --fetch --stages sync,abstracts,jcr,delivery --snapshot local-jcr
+paper-inbox jcr
+paper-inbox weekly --fetch --stages sync,abstracts,jcr,delivery
 ```
 
-先准备自己的有效快照，再执行这些命令。合成模板不会被允许用作真实匹配来源。分区缺失显示缺失，不回填 Q4；不同年度或修订的指标不混写。
+默认命令直接使用随包快照。使用自己的数据时增加 `--snapshot YOUR_SNAPSHOT`；合成模板不能作为真实匹配来源。分区缺失保留缺失，不回填 Q4，不混写不同年度或修订。
 
 ## 6. 可选 WxPusher App 推送
 
@@ -108,7 +143,7 @@ paper-inbox weekly --fetch --send
 | `missing_imap_credentials` | 在本机检查账号和授权码；不要发送实际值 |
 | `imap_login_failed` | 核对是否开启 IMAP、授权码和账号支持的认证方式 |
 | `invalid_imap_mailbox` | 检查文件夹名及 modified UTF-7 表示 |
-| `jcr_real_snapshot_required` | 当前是合成或空模板；真实使用需自备数据 |
+| `jcr_real_snapshot_required` | 当前是合成或空模板；改用随包快照或自己的有效数据 |
 | `missing_or_invalid_niutrans_api_key` | 本机检查翻译配置与接口类型 |
 | `wxpusher_receipt_not_confirmed` | 单条测试后先在 App 实际查看，再记录对应尝试编号 |
 | `sync_locked` / `outbox_locked` | 先确认另一进程是否仍在运行；不要批量删除锁或数据 |

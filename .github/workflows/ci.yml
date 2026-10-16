@@ -33,10 +33,15 @@ jobs:
       - name: Source demo and release checks
         run: |
           python -X utf8 scripts/demo.py
+          python -X utf8 scripts/showcase.py
+          python -X utf8 scripts/journals.py --info
           python -X utf8 scripts/check_release.py
       - name: Installed CLI outside checkout
         working-directory: ${{ runner.temp }}
-        run: paper-inbox demo
+        run: |
+          paper-inbox demo
+          paper-inbox showcase
+          paper-inbox journals --issn 1664-462X
       - name: Parse Windows task script without registration
         if: runner.os == 'Windows'
         shell: pwsh

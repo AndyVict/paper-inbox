@@ -37,7 +37,7 @@ def run_stages(root, args, log):
         ("abstracts", enrich_cli.main, network + ["--max-articles", str(args.max_articles)]),
         ("translation", translate_cli.main, network + env + ["--max-articles", str(args.max_articles)]),
         ("jcr", jcr_match_cli.main, network + ["--max-articles", str(args.max_articles),
-                                              "--snapshot", getattr(args, "snapshot", "local-jcr")]),
+                                              "--snapshot", getattr(args, "snapshot", jcr_match_cli.DEFAULT_SNAPSHOT)]),
         ("delivery", delivery_cli.main, (["--send", "--require-receipt"] if args.send else []) + env +
          ["--max-messages", str(args.max_messages), "--daily-limit", str(args.daily_limit),
           "--max-abstract", str(args.max_abstract), "--language", getattr(args, "language", "zh")]),
@@ -69,7 +69,7 @@ def main(argv=None, *, project_root=None):
     parser.add_argument("--env-file", type=Path, default=root / ".env")
     parser.add_argument("--stages", type=selected_stages, default=selected_stages(DEFAULT_STAGES),
                         help="可选 sync,abstracts,translation,jcr,delivery；默认 sync,abstracts,delivery；按固定顺序执行")
-    parser.add_argument("--snapshot", default="local-jcr", help="启用 jcr 阶段时使用的本地快照名称")
+    parser.add_argument("--snapshot", default=jcr_match_cli.DEFAULT_SNAPSHOT, help="期刊快照；默认使用随包期刊库，可指定自己的本地快照")
     parser.add_argument("--language", choices=("en", "zh"), default="en", help="默认英文；中文模式需先翻译")
     parser.add_argument("--max-mails", type=int, default=100)
     parser.add_argument("--max-articles", type=int, default=100)

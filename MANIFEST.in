@@ -1,6 +1,6 @@
-include LICENSE README.md README.en.md CONTRIBUTING.md SECURITY.md PROVENANCE.md CHANGELOG.md AGENTS.md
+include LICENSE THIRD_PARTY_NOTICES.md README.md README.en.md CONTRIBUTING.md SECURITY.md PROVENANCE.md CHANGELOG.md AGENTS.md
 include .env.example .gitignore .gitattributes
-recursive-include src *.py *.json
+recursive-include src *.py *.json *.csv
 recursive-include tests *.py *.html *.txt
 recursive-include scripts *.py *.ps1
 recursive-include docs *.md *.png *.json

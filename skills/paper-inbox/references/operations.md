@@ -20,6 +20,8 @@ IMAP_MAILBOX=INBOX
 
 | 意图 | 命令 | 外部影响 |
 | --- | --- | --- |
+| 完整消息展示 | `paper-inbox showcase` | 只生成 `data/showcase/` |
+| 离线期刊查询 | `paper-inbox journals --issn 1664-462X` | 只读取随包期刊库，无需账号 |
 | 合成演示 | `paper-inbox demo` | 只生成 `data/demo/` |
 | 解析已有邮件文件 | `paper-inbox preview --input-dir data/samples` | 本地预览 |
 | 收信配置格式 | `paper-inbox sync --check-config` | 读取本地 IMAP 配置，不联网 |
@@ -36,7 +38,7 @@ IMAP_MAILBOX=INBOX
 | 记录实际收到 | `paper-inbox send --confirm-received 1` | 仅凭用户反馈，将示例编号换成真实对应尝试编号 |
 | 每周真实流程 | `paper-inbox weekly --fetch --send` | 需要当前接收者已有人工接收确认 |
 
-单独 `send` 默认中文；每周流程默认英文。阶段名仅允许 `sync,abstracts,translation,jcr,delivery`，实际顺序固定。`jcr` 需要用户自己的有效快照，使用 `--snapshot <name>`；合成模板会被拒绝。
+单独 `send` 默认中文；每周流程默认英文。阶段名仅允许 `sync,abstracts,translation,jcr,delivery`，实际顺序固定。`jcr` 默认使用随包 `bundled-jcr-2025`，无需另接期刊数据源；自备有效快照通过 `--snapshot <name>` 指定。合成模板会被拒绝。
 
 退出码通常为：0 本轮完成；2 参数/配置不满足；3 部分完成或有待处理项；4 状态/执行失败；5 收信失败或投递结果不明（依具体命令）。结合安全错误码解释，不能仅凭非零码重放真实发送。
 

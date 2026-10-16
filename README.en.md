@@ -1,50 +1,68 @@
 # Paper Inbox
 
-**Turn X-MOL / Stork literature alert emails into a deduplicated reading list.**
+**Read your X-MOL / Stork literature alerts as paper briefs on your phone.**
 
-Add public abstracts, Chinese translation, your own journal metrics and phone notifications as needed. The runtime uses the Python standard library and works without an AI agent.
+Merge duplicate papers, add Chinese titles and abstracts, look up journal metrics in the bundled snapshot, and send each paper through WxPusher App. Each message contains the paper, its journal, an abstract and a link to read more.
 
-[简体中文](README.md) · [Demo output](examples/demo-report.html) · [Setup](docs/SETUP.md) · [Agent Skill](skills/paper-inbox/SKILL.md)
+[简体中文](README.md) · [Complete message examples](examples/demo-report.md) · [Setup](docs/SETUP.md) · [Agent Skill](docs/SKILL.md)
 
 [![CI](https://github.com/AndyVict/paper-inbox/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/AndyVict/paper-inbox/actions/workflows/ci.yml)
 
-![Synthetic demo: four candidate records from two emails become three unique papers](docs/assets/demo.png)
+## Less sorting, more reading
 
-## Try it without credentials
+- Collect X-MOL and Stork subscriptions from your mailbox on a weekly schedule.
+- Merge duplicates across providers and runs, preserving cached translations and delivery history.
+- Read one message per paper: Chinese and English titles, journal, JIF/JCI quartiles, Chinese abstract and paper link.
+- Resume from SQLite state and caches. Uncertain delivery attempts remain available for review.
 
-With Python 3.11+, clone the repository and run:
+Chinese translation uses NiuTrans. A local journal snapshot ships with the project: **22,643 journals, 32,215 category records and 254 subjects**. Each stage can be enabled separately, and English previews work without translation.
+
+## Message preview
+
+![Complete local message preview with titles, journal metrics, a Chinese abstract and a paper link](docs/assets/demo.png)
+
+*A local message preview using the production delivery template. Papers are CC BY 4.0; Chinese text uses existing machine translations. See the [examples and attribution](examples/demo-report.md).*
+
+## See the result first
+
+Open the [complete message examples](examples/demo-report.md) directly on GitHub, or generate the same HTML locally:
 
 ```console
 git clone https://github.com/AndyVict/paper-inbox.git
 cd paper-inbox
-python -X utf8 scripts/demo.py
+python -X utf8 scripts/showcase.py
 ```
 
-Alternatively, download and extract the source ZIP from GitHub, then run the demo command inside the project directory.
+Open `data/showcase/report.html`. It contains two existing message examples with full abstracts and all seven fields. It requires no credentials, makes no network requests and sends no notifications.
 
-Open `data/demo/report.html`. The demo runs the actual parsers and deduplication logic: **2 emails → 4 candidates → 3 papers**. Abstracts and translations are fixed fictional fixtures. It does not read `.env`, access the network, send notifications or touch the live database. A [Markdown sample](examples/demo-report.md) is also included.
+For a separate parser demonstration, run `python -X utf8 scripts/demo.py` and open `data/demo/report.html`: **2 synthetic emails → 4 candidates → 3 unique papers**. Demonstration data stays separate from the live queue.
 
-## Features
+## Look up a journal offline
 
-- Parse X-MOL and Stork HTML/plain-text alerts.
-- Deduplicate by DOI, PMID, then normalized title and year; retain provenance.
-- Resume with SQLite cursors, cached enrichment and persistent delivery state.
-- Optionally retrieve public abstracts from PubMed, Europe PMC, Crossref and OpenAlex.
-- Optionally translate English titles and abstracts through NiuTrans, with caching and chunking.
-- Optionally import your own journal metrics and match by verified ISSN/eISSN. No JCR database is distributed.
-- Optionally notify through WxPusher App. Platform acceptance and user-confirmed receipt are separate states; uncertain sends are not replayed automatically.
+From a source checkout, no account, API key or external data connection is needed:
 
-## Install
+```console
+python -X utf8 scripts/journals.py --issn 1664-462X
+python -X utf8 scripts/journals.py "Nature" --limit 5
+```
 
-Run from the repository root. On Windows PowerShell:
+After installation use `paper-inbox journals`; add `--json` for structured output. The shipped snapshot contains 2025 metrics with a 2026 release year. The maintainer individually downloaded the records and confirmed permission to publish; source/version and official completeness have not been independently verified. See the [dataset notes](docs/JCR.md).
+
+## Start using it
+
+Requires **Python 3.11+**. The runtime uses the Python standard library. From the repository root, on Windows PowerShell:
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e .
-.\.venv\Scripts\paper-inbox.exe --help
-if (Test-Path -LiteralPath .env) { throw 'config_already_exists' }
-Copy-Item -LiteralPath .env.example -Destination .env
+if (-not (Test-Path -LiteralPath .env)) {
+    Copy-Item -LiteralPath .env.example -Destination .env
+}
+.\.venv\Scripts\paper-inbox.exe sync --check-config
+.\.venv\Scripts\paper-inbox.exe sync --fetch --max-mails 20
 ```
+
+Edit the `IMAP_*` fields in your local `.env` before running the last two commands. Existing configuration is preserved. Read the results in `data/outbox/`; mail remains unread and is never moved or deleted.
 
 On macOS / Linux:
 
@@ -54,36 +72,41 @@ python3 -m venv .venv
 .venv/bin/paper-inbox --help
 ```
 
-Create `.env` from `.env.example` only for a fresh setup; preserve an existing file. Fill in `IMAP_*`, then run `paper-inbox sync --check-config` and `paper-inbox sync --fetch --max-mails 20` using the executable inside your virtual environment. Read Markdown outputs in `data/outbox/`.
+Create `.env` from `.env.example` for a fresh setup and use `.venv/bin/paper-inbox` for subsequent commands. The detailed setup guide is currently Chinese.
+
+After configuring NiuTrans, generate Chinese previews:
 
 ```console
-paper-inbox weekly --fetch
-paper-inbox weekly --fetch --stages sync,abstracts,translation,delivery --language zh
-paper-inbox send --status
+paper-inbox weekly --fetch --stages sync,abstracts,translation,jcr,delivery --language zh
 ```
 
-The first command uses `sync,abstracts,delivery` and English previews. The second requires NiuTrans configuration and generates Chinese previews. Neither sends notifications. `--stages` selects stages; execution follows the canonical dependency order. Disabled stages do not load their service configuration.
+Use the executable inside your virtual environment. Output goes to `data/send-preview/`; this command does not send notifications. For a single test notification, receipt confirmation and scheduling, follow the [complete setup route](docs/SETUP.md).
 
-`weekly` defaults to English; the standalone `send` command defaults to Chinese. Use `send --language en` for untranslated content. `--fetch` enables online retrieval; `--send` explicitly enables delivery. A bare `weekly` uses local data and caches only.
+| Feature | What you need |
+| --- | --- |
+| Email collection | TLS IMAP and password/app-password authentication; 163 has live validation |
+| Public abstracts | Access to PubMed / Europe PMC / Crossref / OpenAlex |
+| Chinese translation | A configured NiuTrans `cloud` or `neu` account with available quota |
+| Journal metrics | Use the bundled snapshot or [import your own](docs/JCR.md) |
+| Phone notifications | WxPusher App, an app token and recipient UID |
 
-See [setup and delivery confirmation](docs/SETUP.md) before enabling notifications or scheduling. The detailed setup guide is currently Chinese; command names and error codes are unchanged.
+## Support and defaults
 
-## Compatibility and maturity
+The primary delivery target is **WxPusher App**. WeChat delivery depends on provider binding and activation requirements. The manual end-to-end workflow has been used; the first scheduled weekly observation is still pending. Windows Task Scheduler scripts are included; other system schedulers are not validated.
 
-- Python metadata allows 3.11+. All eight Windows/Linux CI combinations on 3.11–3.14 have passed 269 tests each. See [release status](docs/RELEASE_STATUS.md) for evidence and Actions for the latest run.
-- Configurable TLS IMAP host, port and ASCII mailbox names, with password/app-password authentication. 163 has live validation; other providers have mocked coverage only. OAuth2 is not implemented.
-- Phone delivery targets WxPusher App. Personal WeChat delivery is subject to the provider's binding/activation requirements and is not promised as unattended delivery.
-- This is a `0.1.0` release candidate. The manual end-to-end workflow has been used; the first scheduled weekly acceptance is still pending. Windows Task Scheduler export/registration is provided; other scheduling systems are not validated.
+Other IMAP providers have mocked coverage only. OAuth2 is not implemented. Missing abstracts remain missing. The bundled snapshot is frozen, with original missing metrics and three invalid source identifiers retained. It is not presented as a current or independently verified official database.
 
-## Agent Skill and contributions
+`weekly` defaults to English previews. Chinese requires the `translation` stage and `--language zh`. Retrieval requires `--fetch`; delivery requires `--send`. Confirm receipt of one test notification before enabling weekly delivery. See [validation records](docs/RELEASE_STATUS.md).
 
-The [paper-inbox Skill](skills/paper-inbox/SKILL.md) guides setup, previews, status checks and troubleshooting. Install its folder in a client supporting Agent Skills and install the Python tool separately. Client compatibility is described in [docs/SKILL.md](docs/SKILL.md).
+## Agent assistance and contributions
 
-Contributions with synthetic fixtures, parser improvements and documentation are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md) and [PROVENANCE.md](PROVENANCE.md).
+Install the Python tool and the [paper-inbox Skill](skills/paper-inbox/SKILL.md) separately. The [installation guide](docs/SKILL.md) explains how to use the Skill for setup, previews and troubleshooting.
+
+Contributions with synthetic parser samples and usability feedback are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md) and [PROVENANCE.md](PROVENANCE.md).
 
 ```console
 python -X utf8 -m unittest discover -s tests -q
 python -X utf8 scripts/check_release.py
 ```
 
-Code and synthetic examples are [MIT licensed](LICENSE). External services and user-provided datasets retain their own terms.
+Project code and original documentation use [MIT](LICENSE). Showcase papers and translations retain their stated third-party licenses.

@@ -32,6 +32,13 @@ def main():
                 failures.append(archive.name + ": private_or_unsafe_member")
         if not any(name.endswith("mail_literature/resources/demo.json") for name in names):
             failures.append(archive.name + ": missing_demo_resource")
+        if not any(name.endswith("mail_literature/resources/showcase.json") for name in names):
+            failures.append(archive.name + ": missing_showcase_resource")
+        for resource in ("journals.csv", "journal_categories.csv", "snapshot.json", "coverage_report.json"):
+            if not any(name.endswith("mail_literature/resources/jcr/bundled-jcr-2025/" + resource) for name in names):
+                failures.append(archive.name + ": missing_bundled_journal_resource:" + resource)
+        if not any(PurePosixPath(name).name == "THIRD_PARTY_NOTICES.md" for name in names):
+            failures.append(archive.name + ": missing_third_party_notices")
         if not any(PurePosixPath(name).name == "LICENSE" for name in names):
             failures.append(archive.name + ": missing_license")
         print(archive.name + f": {len(names)} members inspected")

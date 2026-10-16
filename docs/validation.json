@@ -50,5 +50,26 @@
       "3.14"
     ]
   },
-  "live_provider_checks_in_this_release_preparation": false
+  "live_provider_checks_in_this_release_preparation": false,
+  "main_refresh": {
+    "date": "2026-10-16",
+    "platform": "Windows x64",
+    "python": "3.12.4",
+    "tests": 282,
+    "passed": true,
+    "resource_warning_check": "passed",
+    "wheel_and_sdist_checked": true,
+    "wheel_install_outside_source": true,
+    "installed_offline_commands": [
+      "showcase",
+      "journals"
+    ],
+    "bundled_journals": 22643,
+    "bundled_category_records": 32215,
+    "subjects": 254,
+    "desktop_viewport_width": 1120,
+    "mobile_viewport_width": 390,
+    "horizontal_overflow": false,
+    "live_service_calls": false
+  }
 }

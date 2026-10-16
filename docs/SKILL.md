@@ -1,18 +1,22 @@
-# 配套 Agent Skill
+# 安装与使用配套 Skill
 
-可分发单元是 [skills/paper-inbox/](../skills/paper-inbox/SKILL.md)，含 `SKILL.md` 和操作参考。遵循 [Agent Skills 规范](https://agentskills.io/specification)，不依赖本机其他 Skill。
+公开仓库：[AndyVict/paper-inbox](https://github.com/AndyVict/paper-inbox)。Skill 位于 [skills/paper-inbox/](../skills/paper-inbox/SKILL.md)，包含 `SKILL.md` 和 `references/operations.md`。
 
-将整个目录安装到支持该规范的客户端，再按客户端要求重新发现技能。具体安装目录、自动发现和外部命令权限由客户端决定；本项目不宣称所有客户端均已实测兼容，也未预设 GitHub owner 或远程安装地址。
+## 安装
 
-Python 核心须另外安装，并告诉 Agent 仓库或工作目录。Skill 负责选择现有入口、解释配置和状态，不复制业务处理代码，不包含账号、API 密钥、调度守护进程或云端服务。
+1. 克隆本仓库，或从 GitHub 下载源码 ZIP 后解压。
+2. 按 [README](../README.md) 安装 Python 工具。Skill 通过工具的 CLI 工作，单独复制 Skill 不会安装 Python 核心。
+3. 将 `skills/paper-inbox/` 整个文件夹安装到客户端指定的 Skill 目录，保留其中的 `references/`。
+4. 按客户端方式重新发现 Skill，并告诉 Agent 代码仓库路径和可用的虚拟环境解释器。
 
-可以尝试：
+Skill 遵循 [Agent Skills 规范](https://agentskills.io/specification)。不同客户端的安装目录、重新发现方式和外部命令权限不同；目前已验证结构和离线命令行为，客户端安装与自动发现需要分别实测。
 
-- “先跑 Paper Inbox 的离线演示，告诉我有哪些输出。”
-- “只检查 IMAP 配置格式，不连接邮箱。”
-- “整理邮件并生成英文预览，暂时跳过翻译和期刊指标。”
-- “查看投递状态，解释 accepted 与 confirmed 的区别。”
+## 可以这样使用
 
-在已经授权的任务范围内继续工作；安装 Skill 本身不构成连接私人邮箱、付费调用翻译、发送消息或注册定时任务的授权。已有授权无需重复索要。
+- “先生成 Paper Inbox 的完整消息展示，打开结果给我看。”
+- “运行合成邮件演示，解释两个来源里的重复论文如何被合并。”
+- “帮我检查邮箱配置格式，先不要连接邮箱。”
+- “按推荐流程生成中文预览，我有本地期刊快照。”
+- “查看发送状态，帮我定位哪些记录需要人工检查。”
 
-验证包括结构检查和离线行为试用；实际客户端安装和自然语言自动发现效果应按使用环境分别确认。
+Agent 使用现有 CLI，不修改投递历史或绕过去重。在用户已授权的任务范围内继续执行；配置检查、联网查询、翻译、推送和系统任务各自遵循已有授权范围。
